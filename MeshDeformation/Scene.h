@@ -12,7 +12,8 @@ class MyScene
 {
 private:
 	//各种场景信息（相机、材质、灯光、各种物体的各种矩阵）
-	MeshObject cow;
+	map<string, Object> objects;
+	//MeshObject cow;
 	//灯光
 	vec3 lightPos;
 	vec3 lightColor;

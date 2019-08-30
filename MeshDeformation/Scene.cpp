@@ -24,14 +24,20 @@ void MyScene::Init()
 	//SetDrawMode(drawMode.isLine, false);
 	drawMode.isLine = false;
 
-
+	
+	
 
 	//指定物体PBR材质
+	MeshObject cow;
+	cow.SetName("cow");
 	cow.readObjFile("OBJ\\cow.obj");
-	cow.getTransform().SetPosition(vec3(0, 0, 0));
-	cow.getTransform().SetScaler(vec3(3.0));
-	cow.getShaderData().bUseTexture = false;
+	cow.GetTransform().SetPosition(vec3(0, 0, 0));
+	cow.GetTransform().SetScaler(vec3(3.0));
+	cow.GetShaderData().bUseTexture = false;
 	cow.InitVertexBuffer();
+
+	objects.insert(pair<string, Object>(cow.GetName(), cow));
+
 
 	//myBox.InitDirectBox(1, 1, 1);					//顶点、索引信息初始化
 	//myBox.InitBuffers();							//缓冲初始化
@@ -67,15 +73,23 @@ void MyScene::Update()
 	//计算投影矩阵
 	mainCamera.SetPro();
 
-	cow.UpdateMatrix(mainCamera);
+	//遍历所有object更新矩阵
+	map<string, Object>::iterator objs_it;
+	for (objs_it = objects.begin(); objs_it != objects.end(); objs_it++)
+	{
+		(*objs_it).second.UpdateMatrix(mainCamera);
+	}
+
+	//cow.UpdateMatrix(mainCamera);
 	//myBox.SetObjMat(camera.view, camera.pro);
 	//myBucket.SetObjMat(camera.view, camera.pro);
 	//myGrid.SetObjMat(camera.view, camera.pro);
 
-	map<KEYNAME, Key>::iterator it;
-	for (it = keys.begin(); it != keys.end(); it++)
+	//遍历所有key，并执行key当前绑定的事件
+	map<KEYNAME, Key>::iterator keys_it;
+	for (keys_it = keys.begin(); keys_it != keys.end(); keys_it++)
 	{
-		it->second.Execute();
+		keys_it->second.Execute();
 	}
 }
 
@@ -109,6 +123,10 @@ void MyScene::Draw()
 
 	glUseProgram(p1.p);						//启用着色器程序
 
-	cow.Draw(p1);
+	map<string, Object>::iterator objs_it;
+	for (objs_it = objects.begin(); objs_it != objects.end(); objs_it++)
+	{
+		(*objs_it).second.Draw(p1);
+	}
 
 }
