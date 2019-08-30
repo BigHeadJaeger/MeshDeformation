@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29209.62
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MeshDeformation", "MeshDeformation\MeshDeformation.vcxproj", "{674675C0-EBE8-4472-8238-2142414BF5EA}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x64 = Debug|x64
+		Debug|x86 = Debug|x86
+		Release|x64 = Release|x64
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{674675C0-EBE8-4472-8238-2142414BF5EA}.Debug|x64.ActiveCfg = Debug|x64
+		{674675C0-EBE8-4472-8238-2142414BF5EA}.Debug|x64.Build.0 = Debug|x64
+		{674675C0-EBE8-4472-8238-2142414BF5EA}.Debug|x86.ActiveCfg = Debug|Win32
+		{674675C0-EBE8-4472-8238-2142414BF5EA}.Debug|x86.Build.0 = Debug|Win32
+		{674675C0-EBE8-4472-8238-2142414BF5EA}.Release|x64.ActiveCfg = Release|x64
+		{674675C0-EBE8-4472-8238-2142414BF5EA}.Release|x64.Build.0 = Release|x64
+		{674675C0-EBE8-4472-8238-2142414BF5EA}.Release|x86.ActiveCfg = Release|Win32
+		{674675C0-EBE8-4472-8238-2142414BF5EA}.Release|x86.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {0838DE97-BB1C-451B-9863-054B2AD9A877}
+	EndGlobalSection
+EndGlobal
