@@ -51,6 +51,9 @@
     <ClInclude Include="Program.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="BoundingVolume.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DataConvey.cpp">
@@ -83,5 +86,16 @@
     <ClCompile Include="Program.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="BoundingVolume.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="test.frag">
+      <Filter>资源文件</Filter>
+    </None>
+    <None Include="test.vert">
+      <Filter>资源文件</Filter>
+    </None>
   </ItemGroup>
 </Project>
