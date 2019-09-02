@@ -1,5 +1,20 @@
 #include "NewObject.h"
 
+void Object::InitBounding(BOUNDINGTYPE type)
+{
+	switch (type)
+	{
+	case BOX:
+		bounding = make_shared<BoundingBox>();
+		bounding->Init(this->meshData);
+		break;
+	case SPHERE:
+		break;
+	default:
+		break;
+	}
+}
+
 void Object::Draw(ShaderProgram&p)
 {
 	ConveyTool* conveyTool = ConveyTool::GetConveyTool();

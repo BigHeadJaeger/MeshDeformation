@@ -1,16 +1,16 @@
 #include "BoundingVolume.h"
 
-void BoundingBox::UpdatePos()
+void BoundingBox::UpdatePos(Transform& trans)
 {
 	mat4 world;
-	world = translate(mat4(1.0), attachObj->GetTransform().position);
-	world = scale(world, attachObj->GetTransform().scaler);
-	if (attachObj->GetTransform().rotation.x != 0)
-		world = rotate(world, attachObj->GetTransform().rotation.x, vec3(1.0, 0.0, 0.0));
-	if (attachObj->GetTransform().rotation.y != 0)
-		world = rotate(world, attachObj->GetTransform().rotation.y, vec3(0.0, 1.0, 0.0));
-	if (attachObj->GetTransform().rotation.z != 0)
-		world = rotate(world, attachObj->GetTransform().rotation.z, vec3(0.0, 0.0, 1.0));
+	world = translate(mat4(1.0), trans.position);
+	world = scale(world, trans.scaler);
+	if (trans.rotation.x != 0)
+		world = rotate(world, trans.rotation.x, vec3(1.0, 0.0, 0.0));
+	if (trans.rotation.y != 0)
+		world = rotate(world, trans.rotation.y, vec3(0.0, 1.0, 0.0));
+	if (trans.rotation.z != 0)
+		world = rotate(world, trans.rotation.z, vec3(0.0, 0.0, 1.0));
 
 	vec4 res = world * vec4(maxPos, 1.0);
 	maxPos = vec3(res.x, res.y, res.z);
@@ -19,16 +19,16 @@ void BoundingBox::UpdatePos()
 	minPos = vec3(res.x, res.y, res.z);
 }
 
-void BoundingBox::Init(Object* obj)
+void BoundingBox::Init(MeshData& meshData)
 {
-	attachObj = obj;
+	//attachObj = obj;
 
-	for (Mesh::VertexIter v_it = obj->GetMeshData().mesh.vertices_begin(); v_it != obj->GetMeshData().mesh.vertices_end(); v_it++)
+	for (Mesh::VertexIter v_it = meshData.mesh.vertices_begin(); v_it != meshData.mesh.vertices_end(); v_it++)
 	{
 		float x, y, z;
-		x = obj->GetMeshData().mesh.point(*v_it).data()[0];
-		y = obj->GetMeshData().mesh.point(*v_it).data()[1];
-		z = obj->GetMeshData().mesh.point(*v_it).data()[2];
+		x = meshData.mesh.point(*v_it).data()[0];
+		y = meshData.mesh.point(*v_it).data()[1];
+		z = meshData.mesh.point(*v_it).data()[2];
 
 		if (x > maxPos.x)maxPos.x = x;
 		if (y > maxPos.y)maxPos.y = y;
@@ -41,6 +41,3 @@ void BoundingBox::Init(Object* obj)
 
 }
 
-void Bounding::UpdatePos()
-{
-}

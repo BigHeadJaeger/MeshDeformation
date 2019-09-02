@@ -2,20 +2,12 @@
 //与OpenGLshader配置相关的各种变量和方法
 #include<GL/glew.h>
 #include<SOIL.h>
-#include<OpenMesh/Core/IO/MeshIO.hh>
-#include<OpenMesh/Core/Mesh/TriMesh_ArrayKernelT.hh>
 #include<string>
-
 #include"Transform.h"
 #include"Camera.h"
+#include"PublicStruct.h"
 using namespace std;
-typedef OpenMesh::TriMesh_ArrayKernelT<> Mesh;
 
-struct MeshData
-{
-	Mesh mesh;			//网格数据
-	bool providedTex;	//记录文件是否含有纹理坐标
-};
 
 
 class ShaderData

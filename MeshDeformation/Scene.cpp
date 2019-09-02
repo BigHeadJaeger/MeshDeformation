@@ -35,6 +35,7 @@ void MyScene::Init()
 	cow.GetTransform().SetScaler(vec3(3.0));
 	cow.GetShaderData().bUseTexture = false;
 	cow.InitVertexBuffer();
+	cow.InitBounding(BOX);
 
 	objects.insert(pair<string, Object>(cow.GetName(), cow));
 
@@ -78,6 +79,7 @@ void MyScene::Update()
 	for (objs_it = objects.begin(); objs_it != objects.end(); objs_it++)
 	{
 		(*objs_it).second.UpdateMatrix(mainCamera);
+		(*objs_it).second.UpdateBounding();
 	}
 
 	//cow.UpdateMatrix(mainCamera);
