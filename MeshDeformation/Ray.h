@@ -27,7 +27,7 @@ public:
 
 	void PickRayInit(float mouseX, float mouseY, Camera& camera);							//初始化3维拾取的射线
 	//与包围体的碰撞检测，用参数虚基类函数统一调用
-	bool BoundingHit(Bounding& bounding);
+	bool BoundingHit(shared_ptr<Bounding> bounding);
 
 	double RayHit(Object& obj, vec3 camPos);
 
