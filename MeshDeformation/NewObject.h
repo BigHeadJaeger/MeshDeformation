@@ -61,8 +61,11 @@ public:
 	void InitAo(string texPath) { shaderData.bAo = true; shaderData.InitTexture(shaderData.tAo, texPath); }
 	void InitNormal(string texPath) { shaderData.bNormal = true; shaderData.InitTexture(shaderData.tNormal, texPath); }
 	void InitShadowTex(string texPath) { shaderData.bShadowTex = true; shaderData.InitTexture(shaderData.tShadowTex, texPath); }
+
 	//Update
+	//更新物体相关矩阵
 	void UpdateMatrix(Camera& camera) { shaderData.UpdateMatrix(transformation, camera); }
+	//更新包围体坐标
 	void UpdateBounding() { bounding->UpdatePos(this->transformation); }
 	//Destroy
 	void DestroyBounding() { bounding.reset(); }

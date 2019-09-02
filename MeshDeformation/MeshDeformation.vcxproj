@@ -70,8 +70,8 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IncludePath>E:\MyProgram\ComputerGraphics\Mesh\MeshDeformation\Lib\glew\include;E:\MyProgram\ComputerGraphics\Mesh\MeshDeformation\Lib\glfw\glfw64\include;E:\MyProgram\ComputerGraphics\Mesh\MeshDeformation\Lib\glm;E:\MyProgram\ComputerGraphics\Mesh\MeshDeformation\Lib\SOIL\x64;E:\MyProgram\ComputerGraphics\Mesh\MeshDeformation\Lib\OpenMesh 8.0\x64\include;$(IncludePath)</IncludePath>
-    <LibraryPath>E:\MyProgram\ComputerGraphics\Mesh\MeshDeformation\Lib\glew\lib\x64;E:\MyProgram\ComputerGraphics\Mesh\MeshDeformation\Lib\glfw\glfw64\lib;E:\MyProgram\ComputerGraphics\Mesh\MeshDeformation\Lib\OpenMesh 8.0\x64\lib;E:\MyProgram\ComputerGraphics\Mesh\MeshDeformation\Lib\SOIL\x64;$(LibraryPath)</LibraryPath>
+    <IncludePath>E:\MyProgram\ComputerGraphics\Mesh\MeshDeformation\Lib\64\include;E:\MyProgram\ComputerGraphics\Mesh\MeshDeformation\Lib\64\glm;$(IncludePath)</IncludePath>
+    <LibraryPath>E:\MyProgram\ComputerGraphics\Mesh\MeshDeformation\Lib\64\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
