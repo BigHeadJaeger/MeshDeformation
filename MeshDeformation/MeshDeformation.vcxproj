@@ -70,8 +70,8 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IncludePath>E:\MyProgram\ComputerGraphics\Mesh\MeshDeformation\Lib\64\include;E:\MyProgram\ComputerGraphics\Mesh\MeshDeformation\Lib\64\glm;$(IncludePath)</IncludePath>
-    <LibraryPath>E:\MyProgram\ComputerGraphics\Mesh\MeshDeformation\Lib\64\lib;$(LibraryPath)</LibraryPath>
+    <IncludePath>D:\MyProgram\ComputerGraphics\MeshDeformation\Lib\64\include;D:\MyProgram\ComputerGraphics\MeshDeformation\Lib\64\glm;$(IncludePath)</IncludePath>
+    <LibraryPath>D:\MyProgram\ComputerGraphics\MeshDeformation\Lib\64\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -138,6 +138,7 @@
     <ClInclude Include="NewObject.h" />
     <ClInclude Include="Program.h" />
     <ClInclude Include="PublicStruct.h" />
+    <ClInclude Include="Ray.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="ShaderData.h" />
     <ClInclude Include="Transform.h" />
@@ -150,6 +151,7 @@
     <ClCompile Include="MeshObject.cpp" />
     <ClCompile Include="NewObject.cpp" />
     <ClCompile Include="Program.cpp" />
+    <ClCompile Include="Ray.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="ShaderData.cpp" />
     <ClCompile Include="Transform.cpp" />

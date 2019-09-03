@@ -24,40 +24,35 @@ bool Ray::BoundingHit(shared_ptr<Bounding> bounding)
 
 double Ray::RayHit(Object& obj, vec3 camPos)
 {
-	vec3 localDir, localPos;							//将Ray转化到当前物体的局部坐标系中
 
-	vec4 temp4;
-
-	/*vec3 testPos = obj.Position;
-	vec3 testScaler = obj.Scaler;
-	vec3 testRoate = obj.Rotation;
-	float testAngle = obj.RotateAngle;
-
-	mat4 testWorld = translate(mat4(1.0), testPos);
-	testWorld = rotate(testWorld, testAngle, testRoate);
-	*/
-	//temp4 = inverse(obj.World) * vec4(camPos, 1.0);
-	//if (temp4.w != 0)
-	//	temp4 /= temp4.w;
-	////localPos = normalize(vec3(temp4.x, temp4.y, temp4.z));
-	//localPos = vec3(temp4.x, temp4.y, temp4.z);
-
-	//temp4 = inverse(obj.World) * vec4(dir, 1.0);
-	//if (temp4.w != 0)
-	//	temp4 /= temp4.w;
-	//localDir = normalize(vec3(temp4.x, temp4.y, temp4.z) - localPos);
 
 	if (!BoundingHit(obj.GetBounding()))
 		return 0.0;
+	//更新一下三角面的法向量
+	obj.GetMeshData().mesh.request_face_normals();
+
+	//当确定和包围体相交之后要把光线转换到物体的局部坐标，因为mesh的data是局部的
+	vec3 localDir, localPos;							//将Ray转化到当前物体的局部坐标系中
+	vec4 temp4;
+	temp4 = inverse(obj.GetShaderData().world) * vec4(camPos, 1.0);
+	if (temp4.w != 0)
+		temp4 /= temp4.w;
+	localPos = vec3(temp4.x, temp4.y, temp4.z);
+
+	temp4 = inverse(obj.GetShaderData().world) * vec4(direction, 1.0);
+	if (temp4.w != 0)
+		temp4 /= temp4.w;
+	localDir = normalize(vec3(temp4.x, temp4.y, temp4.z) - localPos);
 
 	double ss = FAR_AWAY;		//用来找出与当前光线相交的第一个三角，比如球体，一条光线可能与正面和反面的三角相交
 //遍历每一个三角形，用光线检测是否碰撞
-	for (int i = 0; i < obj.Triangles.size(); i++)
+	for (Mesh::FaceIter f_it = obj.GetMeshData().mesh.faces_begin(); f_it != obj.GetMeshData().mesh.faces_end(); f_it++)
 	{
 		float s, k;
 		vec3 hiPoint;
 		//判断光照是否在三角形的正面
-		k = dot(localDir, obj.Triangles[i].nor);
+		const float* nor = obj.GetMeshData().mesh.normal(*f_it).data();
+		k = dot(localDir, vec3(nor[0], nor[1], nor[2]));
 		if (k >= 0)
 			continue;
 		//判断是否与三角形所在的平面相交
@@ -81,6 +76,7 @@ double Ray::RayHit(Object& obj, vec3 camPos)
 		ss = s;			//更新ss
 
 		obj.hitTriangleIndex = i;	//标志当前相交的三角形的索引
+
 	}
 	if (ss != FAR_AWAY)
 		return ss;
