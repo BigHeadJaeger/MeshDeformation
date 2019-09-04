@@ -45,9 +45,37 @@ double Ray::RayHit(Object& obj, vec3 camPos)
 	localDir = normalize(vec3(temp4.x, temp4.y, temp4.z) - localPos);
 
 	double ss = FAR_AWAY;		//用来找出与当前光线相交的第一个三角，比如球体，一条光线可能与正面和反面的三角相交
-//遍历每一个三角形，用光线检测是否碰撞
+	//遍历每一个三角形，用光线检测是否碰撞
+	obj.GetMeshData().mesh.request_face_normals();
 	for (Mesh::FaceIter f_it = obj.GetMeshData().mesh.faces_begin(); f_it != obj.GetMeshData().mesh.faces_end(); f_it++)
 	{
+		vec3 nor;					//三角面的法向量
+		double planeC;					//平面常数
+		vec3 e1, e2, e3;			//三条边向量
+		vec3 nore1, nore2, nore3;	//三条边的法向量
+		double eC1, eC2, eC3;			//三条边的边常数
+		vector<vec3> points;	//当前三角形的三个顶点
+		for (Mesh::FaceVertexIter fv_it = obj.GetMeshData().mesh.fv_begin(*f_it); fv_it.is_valid();fv_it++)
+		{
+			float* temp = obj.GetMeshData().mesh.point(*fv_it).data();
+			points.push_back(vec3(temp[0], temp[1], temp[2]));
+		}
+
+		e1 = points[1] - points[0];
+		e2 = points[2] - points[1];
+		e3 = points[1] - points[3];
+
+		nor = normalize(vec3(obj.GetMeshData().mesh.normal(*f_it).data()[0], obj.GetMeshData().mesh.normal(*f_it).data()[1], obj.GetMeshData().mesh.normal(*f_it).data()[2]));
+
+		planeC = dot(nor, points[0]);
+
+		nore1 = normalize(cross(nor, e1));
+		eC1 = dot(nore1, points[0]);
+		nore2 = normalize(cross(nor, e2));
+		eC2 = dot(nore2, points[1]);
+		nore3 = normalize(cross(nor, e3));
+		eC3 = dot(nore3, points[2]);
+
 		float s, k;
 		vec3 hiPoint;
 		//判断光照是否在三角形的正面
@@ -56,26 +84,28 @@ double Ray::RayHit(Object& obj, vec3 camPos)
 		if (k >= 0)
 			continue;
 		//判断是否与三角形所在的平面相交
-		s = (obj.Triangles[i].planeC - dot(obj.Triangles[i].nor, localPos)) / k;
+		s = (planeC - dot(nor, localPos)) / k;
 		if (s <= 0 || s > ss)			//如果与当前三角形所在平面相交并不是最前面的则不再进行下面的计算
 			continue;
 
 
 		hiPoint = localPos + localDir * s;
 		//判断相交点是否在三角形内部
-		k = dot(obj.Triangles[i].nore1, hiPoint) - obj.Triangles[i].eC1;
+		k = dot(nore1, hiPoint) - eC1;
 		if (k < 0)
 			continue;
-		k = dot(obj.Triangles[i].nore2, hiPoint) - obj.Triangles[i].eC2;
+		k = dot(nore2, hiPoint) - eC2;
 		if (k < 0)
 			continue;
-		k = dot(obj.Triangles[i].nore3, hiPoint) - obj.Triangles[i].eC3;
+		k = dot(nore3, hiPoint) - eC3;
 		if (k < 0)
 			continue;
 
 		ss = s;			//更新ss
 
-		obj.hitTriangleIndex = i;	//标志当前相交的三角形的索引
+		//obj.hitTriangleIndex = i;	//标志当前相交的三角形的索引
+		//记录当前三角形的handle
+
 
 	}
 	if (ss != FAR_AWAY)
