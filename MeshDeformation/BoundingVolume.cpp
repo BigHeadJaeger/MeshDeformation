@@ -41,3 +41,61 @@ void BoundingBox::Init(MeshData& meshData)
 
 }
 
+bool BoundingBox::RayDetect(vec3 dir, vec3 pos)
+{
+	float t;
+	vec3 hitPoint;
+	//与box的求交相似
+
+	//x方向上的相交情况
+	if (dir.x != 0)
+	{
+		if (dir.x > 0)
+			t = (minPos.x - pos.x) / dir.x;
+		else
+			t = (maxPos.x - pos.x) / dir.x;
+
+		if (t > 0)
+		{
+			hitPoint = pos + dir * t;
+			if ((hitPoint.y > minPos.y) && (hitPoint.y < maxPos.y) && (hitPoint.z > minPos.z) && (hitPoint.z < maxPos.z))
+				return true;
+		}
+	}
+
+	//y方向
+	if (dir.y != 0)
+	{
+		if (dir.y > 0)
+			t = (minPos.y - pos.y) / dir.y;
+		else
+			t = (maxPos.y - pos.y) / dir.y;
+
+		if (t > 0)
+		{
+			hitPoint = pos + dir * t;
+			if ((hitPoint.x < maxPos.x) && (hitPoint.x > minPos.x) && (hitPoint.z < maxPos.z) && (hitPoint.z > minPos.z))
+				return true;
+		}
+	}
+
+	//z方向
+	if (dir.z != 0)
+	{
+		if (dir.z > 0)
+			t = (minPos.z - pos.z) / dir.z;
+		else
+			t = (maxPos.z - pos.z) / dir.z;
+
+		if (t > 0)
+		{
+			hitPoint = pos + dir * t;
+			if ((hitPoint.x < maxPos.x) && (hitPoint.x > minPos.x) && (hitPoint.y < maxPos.y) && (hitPoint.y > minPos.y))
+				return true;
+		}
+	}
+
+	return false;
+
+}
+

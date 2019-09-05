@@ -50,6 +50,7 @@ public:
 	Transform& GetTransform() { return transformation; }
 	ShaderData& GetShaderData() { return shaderData; }
 	MeshData& GetMeshData() { return meshData; }
+	shared_ptr<Bounding> GetBounding() { return bounding; }
 	//Set
 	void SetName(string _name) { name = _name; }
 	//Init
