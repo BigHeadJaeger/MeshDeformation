@@ -22,7 +22,7 @@ bool Ray::BoundingHit(shared_ptr<Bounding> bounding)
 	return bounding->RayDetect(direction, position);
 }
 
-double Ray::RayHit(Object& obj, vec3 camPos)
+double Ray::RayHit(Object& obj)
 {
 
 
@@ -34,7 +34,7 @@ double Ray::RayHit(Object& obj, vec3 camPos)
 	//当确定和包围体相交之后要把光线转换到物体的局部坐标，因为mesh的data是局部的
 	vec3 localDir, localPos;							//将Ray转化到当前物体的局部坐标系中
 	vec4 temp4;
-	temp4 = inverse(obj.GetShaderData().world) * vec4(camPos, 1.0);
+	temp4 = inverse(obj.GetShaderData().world) * vec4(position, 1.0);
 	if (temp4.w != 0)
 		temp4 /= temp4.w;
 	localPos = vec3(temp4.x, temp4.y, temp4.z);
@@ -111,6 +111,28 @@ double Ray::RayHit(Object& obj, vec3 camPos)
 	if (ss != FAR_AWAY)
 		return ss;
 	return 0.0;
+
+}
+
+string Ray::Intersect(map<string, Object>& objs)
+{
+	double s, ss;					//s为击中物体时的距离，ss为最终值
+	ss = FAR_AWAY;
+	string result = "";
+
+	map<string, Object>::iterator it;
+	for (it = objs.begin(); it != objs.end(); it++)
+	{
+		s = RayHit((*it).second);
+		if ((s > 0) && (s < ss))
+		{
+			//更新
+			ss = s;
+			result = (*it).first;
+		}
+	}
+
+	return result;
 
 }
 

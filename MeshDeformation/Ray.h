@@ -25,11 +25,11 @@ public:
 		position = _pos;
 	}
 
-	void PickRayInit(float mouseX, float mouseY, Camera& camera);							//初始化3维拾取的射线
+	void PickRayInit(float mouseX, float mouseY, Camera& camera);				//将当前射线初始化成3维拾取的射线
 	//与包围体的碰撞检测，用参数虚基类函数统一调用
 	bool BoundingHit(shared_ptr<Bounding> bounding);
 
-	double RayHit(Object& obj, vec3 camPos);
+	double RayHit(Object& obj);
 
-	int Intersect(vector<Object>& Objs, vec3 camPos);		//返回射线第一个触碰到的物体索引
+	string Intersect(map<string, Object>& objs);		//返回射线第一个触碰到的物体名字
 };
